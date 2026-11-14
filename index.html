@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1e3a8a">
+<title>Mi Casa en España 2026</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+.tab-active { background: #1e3a8a; color: white; }
+.tab-inactive { background: #e5e7eb; color: #374151; }
+.fade-in { animation: fadeIn 0.3s ease-in; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.card-btn { cursor: pointer; transition: all 0.2s; }
+.card-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+</style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+
+<header class="bg-blue-900 text-white p-4 shadow-lg">
+<div class="max-w-6xl mx-auto">
+<h1 class="text-2xl font-bold">🇪🇸 Mi Casa en España</h1>
+<p class="text-xs text-blue-200">Asystent właściciela nieruchomości • 2026</p>
+</div>
+</header>
+
+<nav class="bg-white shadow sticky top-0 z-10">
+<div class="max-w-6xl mx-auto flex overflow-x-auto">
+<button onclick="showTab('dashboard')" id="tab-dashboard" class="tab-active px-4 py-3 font-semibold whitespace-nowrap">🏠 Dashboard</button>
+<button onclick="showTab('properties')" id="tab-properties" class="tab-inactive px-4 py-3 font-semibold whitespace-nowrap">🏘️ Nieruchomości</button>
+<button onclick="showTab('tax210')" id="tab-tax210" class="tab-inactive px-4 py-3 font-semibold whitespace-nowrap">📊 Modelo 210</button>
+<button onclick="showTab('tax210h')" id="tab-tax210h" class="tab-inactive px-4 py-3 font-semibold whitespace-nowrap">💰 Sprzedaż 210-H</button>
+<button onclick="showTab('calendar')" id="tab-calendar" class="tab-inactive px-4 py-3 font-semibold whitespace-nowrap">📅 Terminarz</button>
+<button onclick="showTab('guides')" id="tab-guides" class="tab-inactive px-4 py-3 font-semibold whitespace-nowrap">📚 Przewodniki</button>
+<button onclick="showTab('links')" id="tab-links" class="tab-inactive px-4 py-3 font-semibold whitespace-nowrap">🔗 Linki</button>
+<button onclick="showTab('maintenance')" id="tab-maintenance" class="tab-inactive px-4 py-3 font-semibold whitespace-nowrap">🧮 Koszty</button>
+</div>
+</nav>
+
+<main class="max-w-6xl mx-auto p-4">
+
+<!-- ==================== DASHBOARD ==================== -->
+<section id="section-dashboard" class="fade-in">
+<div class="bg-white rounded-lg shadow p-6 mb-4">
+<h2 class="text-xl font-bold text-blue-900 mb-3">Witaj w Mi Casa en España! 👋</h2>
+<p class="text-gray-700 mb-4">Kompleksowe narzędzie dla Polaków posiadających nieruchomości w Hiszpanii.</p>
+
+<!-- KARTY Z DZIAŁAJĄCYMI onclick -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+<div onclick="showTab('tax210')" class="card-btn bg-blue-100 p-4 rounded-lg border-2 border-blue-200">
+<div class="text-3xl mb-2">📊</div>
+<div class="font-bold text-blue-900">Modelo 210</div>
+<div class="text-xs text-gray-600">Wynajem + Renta</div>
+</div>
+<div onclick="showTab('tax210h')" class="card-btn bg-green-100 p-4 rounded-lg border-2 border-green-200">
+<div class="text-3xl mb-2">💰</div>
+<div class="font-bold text-green-900">Modelo 210-H</div>
+<div class="text-xs text-gray-600">Sprzedaż + Plusvalía</div>
+</div>
+<div onclick="showTab('calendar')" class="card-btn bg-yellow-100 p-4 rounded-lg border-2 border-yellow-200">
+<div class="text-3xl mb-2">📅</div>
+<div class="font-bold text-yellow-900">Terminarz</div>
+<div class="text-xs text-gray-600">Deadlines 2026/27</div>
+</div>
+<div onclick="showTab('guides')" class="card-btn bg-purple-100 p-4 rounded-lg border-2 border-purple-200">
+<div class="text-3xl mb-2">📚</div>
+<div class="font-bold text-purple-900">Przewodniki</div>
+<div class="text-xs text-gray-600">NIE, Cl@ve, Media</div>
+</div>
+</div>
+</div>
+
+<div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded">
+<h3 class="font-bold text-yellow-800 mb-2">⚠️ Ważne - rok podatkowy 2026</h3>
+<ul class="text-sm text-yellow-700 space-y-1">
+<li>• <b>Renta imputada za 2026</b>: składaj między 1 kwietnia a 31 grudnia 2027</li>
+<li>• <b>Wynajem Q4 2026</b>: deklaracja do 20 stycznia 2027</li>
+<li>• <b>Stawki</b>: 19% (UE/EOG) lub 24% (poza UE)</li>
+<li>• <b>Plusvalía</b>: nie może przekroczyć zysku kapitałowego (orzeczenie TK)</li>
+</ul>
+</div>
+</section>
+
+<!-- ==================== NIERUCHOMOŚCI ==================== -->
+<section id="section-properties" class="hidden fade-in">
+<div class="bg-white rounded-lg shadow p-6 mb-4">
+<h2 class="text-xl font-bold text-blue-900 mb-4">➕ Dodaj nieruchomość (do 4 właścicieli)</h2>
+<form id="propForm" class="space-y-3">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<input id="p_ref" placeholder="Referencja katastralna (20 znaków)" class="border p-2 rounded" required>
+<input id="p_nickname" placeholder="Nazwa (np. 'Mieszkanie Alicante')" class="border p-2 rounded">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<input id="p_nie" placeholder="NIE właściciela 1 (główny) *" class="border-2 border-blue-300 p-2 rounded" required>
+<input id="p_city" placeholder="Miasto (np. Alicante)" class="border p-2 rounded">
+</div>
+
+<div class="bg-blue-50 p-3 rounded border-l-4 border-blue-500">
+<h3 class="font-bold text-blue-900 mb-2">👥 Współwłaściciele (opcjonalnie, max 4)</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+<input id="p_nie2" placeholder="NIE właściciela 2" class="border p-2 rounded">
+<input id="p_share2" type="number" step="0.01" placeholder="Udział % właściciela 2" class="border p-2 rounded">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+<input id="p_nie3" placeholder="NIE właściciela 3" class="border p-2 rounded">
+<input id="p_share3" type="number" step="0.01" placeholder="Udział % właściciela 3" class="border p-2 rounded">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+<input id="p_nie4" placeholder="NIE właściciela 4" class="border p-2 rounded">
+<input id="p_share4" type="number" step="0.01" placeholder="Udział % właściciela 4" class="border p-2 rounded">
+</div>
+<p class="text-xs text-gray-600 mt-2">💡 Suma udziałów powinna wynosić 100%. Każdy właściciel składa osobną deklarację.</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<select id="p_res" class="border p-2 rounded">
+<option value="eu">Rezydent UE/EOG (19%)</option>
+<option value="non_eu">Poza UE/EOG (24%)</option>
+</select>
+<input id="p_share" type="number" step="0.01" value="100" placeholder="Udział właściciela 1 %" class="border p-2 rounded">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<input id="p_vc" type="number" step="0.01" placeholder="Wartość katastralna € (z IBI)" class="border p-2 rounded" required>
+<input id="p_suelo" type="number" step="0.01" placeholder="Wartość gruntu € (dla Plusvalía)" class="border p-2 rounded">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<input id="p_pp" type="number" step="0.01" placeholder="Cena zakupu €" class="border p-2 rounded">
+<input id="p_pd" type="date" class="border p-2 rounded">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<input id="p_pe" type="number" step="0.01" placeholder="Wydatki przy zakupie € (notariusz, ITP)" class="border p-2 rounded">
+<label class="flex items-center gap-2 p-2"><input type="checkbox" id="p_rev"> <span>Zrewidowana po 2012 (1,1%)</span></label>
+</div>
+<button type="submit" class="w-full bg-blue-600 text-white p-3 rounded font-bold">💾 Zapisz nieruchomość</button>
+</form>
+<div id="propResult" class="mt-3"></div>
+</div>
+
+<div class="bg-white rounded-lg shadow p-6">
+<h2 class="text-xl font-bold text-blue-900 mb-4">🏘️ Twoje nieruchomości</h2>
+<button onclick="loadProps()" class="bg-gray-200 px-4 py-2 rounded mb-3">🔄 Odśwież</button>
+<div id="propList"></div>
+</div>
+</section>
+
+<!-- ==================== MODELO 210 ==================== -->
+<section id="section-tax210" class="hidden fade-in">
+<div class="bg-white rounded-lg shadow p-6 mb-4">
+<h2 class="text-xl font-bold text-blue-900 mb-2">📊 Modelo 210 - Wynajem + Renta imputada</h2>
+<p class="text-sm text-gray-600 mb-4">Dla nierezydentów. Każdy współwłaściciel składa osobną deklarację za swój udział.</p>
+<form id="rentalForm" class="space-y-3">
+<input id="r_ref" placeholder="Referencja katastralna" class="border p-2 rounded w-full" required>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<input id="r_year" type="number" value="2026" class="border p-2 rounded" placeholder="Rok">
+<input id="r_income" type="number" step="0.01" placeholder="Przychód z najmu €" class="border p-2 rounded" required>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<input id="r_days" type="number" placeholder="Dni wynajmu" class="border p-2 rounded">
+<input id="r_empty" type="number" placeholder="Dni puste (nie oferowane)" class="border p-2 rounded">
+</div>
+<h3 class="font-bold text-gray-700 mt-4">Koszty odliczalne (tylko UE):</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<input id="r_mortgage" type="number" step="0.01" placeholder="Odsetki od kredytu €" class="border p-2 rounded">
+<input id="r_depr" type="number" step="0.01" placeholder="Amortyzacja 3% konstrukcji €" class="border p-2 rounded">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<input id="r_ins" type="number" step="0.01" placeholder="Ubezpieczenie €" class="border p-2 rounded">
+<input id="r_ibi" type="number" step="0.01" placeholder="IBI €" class="border p-2 rounded">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<input id="r_com" type="number" step="0.01" placeholder="Comunidad €" class="border p-2 rounded">
+<input id="r_rep" type="number" step="0.01" placeholder="Naprawy € (max = przychód)" class="border p-2 rounded">
+</div>
+<input id="r_other" type="number" step="0.01" placeholder="Inne udokumentowane wydatki €" class="border p-2 rounded w-full">
+<button type="submit" class="w-full bg-purple-600 text-white p-3 rounded font-bold">🧮 Oblicz Modelo 210</button>
+</form>
+<div id="rentalResult" class="mt-4 hidden">
+<div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+<h3 class="font-bold text-lg mb-2">📊 Wynik:</h3>
+<pre id="rentalData" class="text-sm bg-white p-2 rounded"></pre>
+</div>
+<a id="rentalPdf" href="#" class="block mt-3 text-center bg-red-600 text-white p-3 rounded font-bold">📥 Pobierz PDF deklaracji</a>
+</div>
+</div>
+</section>
+
+<!-- ==================== MODELO 210-H ==================== -->
+<section id="section-tax210h" class="hidden fade-in">
+<div class="bg-white rounded-lg shadow p-6 mb-4">
+<h2 class="text-xl font-bold text-blue-900 mb-2">💰 Modelo 210-H - Sprzedaż nieruchomości</h2>
+<p class="text-sm text-gray-600 mb-4">Zysk kapitałowy + szacunkowa Plusvalía municipal.</p>
+<form id="saleForm" class="space-y-3">
+<input id="s_ref" placeholder="Referencja katastralna" class="border p-2 rounded w-full" required>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<input id="s_price" type="number" step="0.01" placeholder="Cena sprzedaży €" class="border p-2 rounded" required>
+<input id="s_date" type="date" class="border p-2 rounded" required>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<input id="s_exp" type="number" step="0.01" placeholder="Wydatki sprzedaży €" class="border p-2 rounded">
+<input id="s_imp" type="number" step="0.01" placeholder="Udokumentowane remonty €" class="border p-2 rounded">
+</div>
+<input id="s_coeff" type="number" step="0.01" placeholder="Współczynnik gminy (np. 0.15)" class="border p-2 rounded w-full">
+<button type="submit" class="w-full bg-green-600 text-white p-3 rounded font-bold">🧮 Oblicz 210-H + Plusvalía</button>
+</form>
+<div id="saleResult" class="mt-4 hidden">
+<div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+<h3 class="font-bold text-lg mb-2">📊 Wynik:</h3>
+<pre id="saleData" class="text-sm bg-white p-2 rounded"></pre>
+</div>
+<a id="salePdf" href="#" class="block mt-3 text-center bg-red-600 text-white p-3 rounded font-bold">📥 Pobierz PDF</a>
+</div>
+</div>
+</section>
+
+<!-- ==================== TERMINARZ ==================== -->
+<section id="section-calendar" class="hidden fade-in">
+<div class="bg-white rounded-lg shadow p-6">
+<h2 class="text-xl font-bold text-blue-900 mb-4">📅 Terminarz podatkowy 2026/2027</h2>
+<div id="deadlineList" class="space-y-2"></div>
+</div>
+</section>
+
+<!-- ==================== PRZEWODNIKI ==================== -->
+<section id="section-guides" class="hidden fade-in">
+<div class="bg-white rounded-lg shadow p-6">
+<h2 class="text-xl font-bold text-blue-900 mb-4">📚 Przewodniki krok po kroku</h2>
+<div class="space-y-4">
+<div class="border-l-4 border-blue-500 bg-blue-50 p-4 rounded">
+<h3 class="font-bold text-lg">🆔 Jak uzyskać numer NIE</h3>
+<ol class="list-decimal ml-5 mt-2 text-sm space-y-1">
+<li>Wypełnij formularz <b>EX-15</b></li>
+<li>Opłać <b>Tasa 790 código 012</b> (ok. 12€)</li>
+<li>Umów <b>Cita Previa</b> w policji lub konsulacie</li>
+<li>Lub upoważnij prawnika (150-300€)</li>
+</ol>
+<a href="https://sede.policia.gob.es" target="_blank" class="text-blue-600 underline text-sm">→ sede.policia.gob.es</a>
+</div>
+<div class="border-l-4 border-green-500 bg-green-50 p-4 rounded">
+<h3 class="font-bold text-lg">🔐 Certificado Digital FNMT / Cl@ve</h3>
+<ol class="list-decimal ml-5 mt-2 text-sm space-y-1">
+<li>Wejdź na <b>sede.fnmt.gob.es</b></li>
+<li>Wypełnij wniosek online (NIE + email)</li>
+<li>W ciągu 10 dni udaj się do biura z paszportem</li>
+<li>Pobierz certyfikat</li>
+</ol>
+<a href="https://www.sede.fnmt.gob.es" target="_blank" class="text-blue-600 underline text-sm">→ sede.fnmt.gob.es</a>
+</div>
+<div class="border-l-4 border-purple-500 bg-purple-50 p-4 rounded">
+<h3 class="font-bold text-lg">🏖️ Licencja turystyczna</h3>
+<ol class="list-decimal ml-5 mt-2 text-sm space-y-1">
+<li>Sprawdź <b>Certificado de Compatibilidad Urbanística</b></li>
+<li>Spełnij wymogi techniczne</li>
+<li>Zgłoś w <b>Registro de Turismo</b> regionu</li>
+</ol>
+</div>
+<div class="border-l-4 border-yellow-500 bg-yellow-50 p-4 rounded">
+<h3 class="font-bold text-lg">⚡ Przepisanie mediów</h3>
+<ol class="list-decimal ml-5 mt-2 text-sm space-y-1">
+<li>Miej: <b>Escritura</b>, NIE, konto SEPA</li>
+<li>Wybierz: Iberdrola, Endesa, Naturgy</li>
+<li>Podaj CUPS z faktury</li>
+</ol>
+</div>
+<div class="border-l-4 border-red-500 bg-red-50 p-4 rounded">
+<h3 class="font-bold text-lg">🏦 Konto bankowe</h3>
+<ol class="list-decimal ml-5 mt-2 text-sm space-y-1">
+<li>Banki: Sabadell, BBVA, Santander</li>
+<li>Wymagane: paszport, NIE, dochody</li>
+<li>Alternatywa: Revolut, Wise</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ==================== LINKI ==================== -->
+<section id="section-links" class="hidden fade-in">
+<div class="bg-white rounded-lg shadow p-6">
+<h2 class="text-xl font-bold text-blue-900 mb-4">🔗 Oficjalne linki</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<a href="https://sede.agenciatributaria.gob.es" target="_blank" class="block bg-blue-100 p-4 rounded hover:bg-blue-200"><div class="font-bold">🏛️ Agencia Tributaria</div><div class="text-sm">Urząd skarbowy</div></a>
+<a href="https://sede.agenciatributaria.gob.es/Sede/procedimientoini/210.shtml" target="_blank" class="block bg-blue-100 p-4 rounded hover:bg-blue-200"><div class="font-bold">📊 Modelo 210</div><div class="text-sm">Formularz online</div></a>
+<a href="https://www1.sedecatastro.gob.es" target="_blank" class="block bg-green-100 p-4 rounded hover:bg-green-200"><div class="font-bold">🗺️ Catastro</div><div class="text-sm">Wartość katastralna</div></a>
+<a href="https://sede.policia.gob.es" target="_blank" class="block bg-yellow-100 p-4 rounded hover:bg-yellow-200"><div class="font-bold">🆔 NIE / Cita Previa</div><div class="text-sm">Umawianie wizyt</div></a>
+<a href="https://www.sede.fnmt.gob.es" target="_blank" class="block bg-purple-100 p-4 rounded hover:bg-purple-200"><div class="font-bold">🔐 Certificado Digital</div><div class="text-sm">Certyfikat FNMT</div></a>
+<a href="https://www.registradores.org" target="_blank" class="block bg-red-100 p-4 rounded hover:bg-red-200"><div class="font-bold">📜 Registro Propiedad</div><div class="text-sm">Nota Simple</div></a>
+<a href="https://www.notariado.org" target="_blank" class="block bg-pink-100 p-4 rounded hover:bg-pink-200"><div class="font-bold">✍️ Notariusze</div><div class="text-sm">Kolegium notarialne</div></a>
+<a href="https://www.abogacia.es" target="_blank" class="block bg-orange-100 p-4 rounded hover:bg-orange-200"><div class="font-bold">⚖️ Abogacía</div><div class="text-sm">Wyszukiwarka prawników</div></a>
+</div>
+<div class="mt-6 bg-gray-100 p-4 rounded">
+<h3 class="font-bold mb-2">📞 Ważne telefony:</h3>
+<ul class="text-sm space-y-1">
+<li><b>AEAT</b>: 91 553 00 71 / 901 33 55 33</li>
+<li><b>Policía (NIE)</b>: 091</li>
+<li><b>Konsulat RP Barcelona</b>: +34 934 876 730</li>
+<li><b>Konsulat RP Madryt</b>: +34 915 622 264</li>
+<li><b>Alarmowy UE</b>: 112</li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- ==================== KOSZTY ==================== -->
+<section id="section-maintenance" class="hidden fade-in">
+<div class="bg-white rounded-lg shadow p-6">
+<h2 class="text-xl font-bold text-blue-900 mb-2">🧮 Kalkulator kosztów utrzymania</h2>
+<p class="text-sm text-gray-600 mb-4">Oblicz ile rocznie kosztuje Cię nieruchomość w Hiszpanii.</p>
+
+<form id="maintForm" class="space-y-4">
+<div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+<h3 class="font-bold text-blue-900 mb-3">🏛️ Podatki i opłaty urzędowe</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<div><label class="block text-sm font-semibold mb-1">IBI (podatek od nieruchomości) - rocznie €</label><input id="m_ibi" type="number" step="0.01" placeholder="np. 420" class="border p-2 rounded w-full"></div>
+<div><label class="block text-sm font-semibold mb-1">Basura (śmieci) - rocznie €</label><input id="m_basura" type="number" step="0.01" placeholder="np. 150" class="border p-2 rounded w-full"></div>
+</div>
+</div>
+
+<div class="bg-green-50 p-4 rounded border-l-4 border-green-500">
+<h3 class="font-bold text-green-900 mb-3">🏢 Wspólnota i ubezpieczenie</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<div><label class="block text-sm font-semibold mb-1">Comunidad (wspólnota) - miesięcznie €</label><input id="m_com" type="number" step="0.01" placeholder="np. 80" class="border p-2 rounded w-full"></div>
+<div><label class="block text-sm font-semibold mb-1">Ubezpieczenie nieruchomości - rocznie €</label><input id="m_ins" type="number" step="0.01" placeholder="np. 200" class="border p-2 rounded w-full"></div>
+</div>
+</div>
+
+<div class="bg-yellow-50 p-4 rounded border-l-4 border-yellow-500">
+<h3 class="font-bold text-yellow-900 mb-3">⚡ Media</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<div><label class="block text-sm font-semibold mb-1">Prąd - miesięcznie €</label><input id="m_elec" type="number" step="0.01" placeholder="np. 60" class="border p-2 rounded w-full"></div>
+<div><label class="block text-sm font-semibold mb-1">Woda - miesięcznie €</label><input id="m_water" type="number" step="0.01" placeholder="np. 30" class="border p-2 rounded w-full"></div>
+</div>
+</div>
+
+<div class="bg-purple-50 p-4 rounded border-l-4 border-purple-500">
+<h3 class="font-bold text-purple-900 mb-3">📊 Podatek dochodowy</h3>
+<div><label class="block text-sm font-semibold mb-1">Renta imputada rocznie € (z Modelo 210)</label><input id="m_imputed" type="number" step="0.01" placeholder="np. 570" class="border p-2 rounded w-full"></div>
+</div>
+
+<button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white p-3 rounded font-bold text-lg">🧮 Oblicz roczne koszty</button>
+</form>
+
+<div id="maintResult" class="mt-6 hidden">
+<div class="bg-gradient-to-r from-orange-50 to-yellow-50 border-l-4 border-orange-500 p-6 rounded-lg">
+<h3 class="font-bold text-2xl text-orange-900 mb-4">💶 Podsumowanie kosztów</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+<div class="bg-white p-3 rounded shadow"><div class="text-sm text-gray-600">🏛️ IBI</div><div id="res_ibi" class="text-xl font-bold text-blue-900">0 €</div></div>
+<div class="bg-white p-3 rounded shadow"><div class="text-sm text-gray-600">🗑️ Basura (śmieci)</div><div id="res_basura" class="text-xl font-bold text-blue-900">0 €</div></div>
+<div class="bg-white p-3 rounded shadow"><div class="text-sm text-gray-600">🏢 Comunidad (rocznie)</div><div id="res_com" class="text-xl font-bold text-blue-900">0 €</div></div>
+<div class="bg-white p-3 rounded shadow"><div class="text-sm text-gray-600">🛡️ Ubezpieczenie</div><div id="res_ins" class="text-xl font-bold text-blue-900">0 €</div></div>
+<div class="bg-white p-3 rounded shadow"><div class="text-sm text-gray-600">⚡ Prąd (rocznie)</div><div id="res_elec" class="text-xl font-bold text-blue-900">0 €</div></div>
+<div class="bg-white p-3 rounded shadow"><div class="text-sm text-gray-600">💧 Woda (rocznie)</div><div id="res_water" class="text-xl font-bold text-blue-900">0 €</div></div>
+<div class="bg-white p-3 rounded shadow"><div class="text-sm text-gray-600">📊 Renta imputada</div><div id="res_imp" class="text-xl font-bold text-blue-900">0 €</div></div>
+</div>
+<div class="bg-orange-600 text-white p-4 rounded-lg mt-4">
+<div class="grid grid-cols-2 gap-4">
+<div><div class="text-sm opacity-90">RAZEM ROCZNIE</div><div id="res_total_year" class="text-3xl font-bold">0 €</div></div>
+<div><div class="text-sm opacity-90">RAZEM MIESIĘCZNIE</div><div id="res_total_month" class="text-3xl font-bold">0 €</div></div>
+</div>
+</div>
+<p class="text-xs text-gray-600 mt-3 italic">* Wynik szacunkowy. Rzeczywiste koszty mogą się różnić.</p>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer class="bg-blue-900 text-white p-4 mt-8 text-center text-sm">
+<p>Mi Casa en España 2026 • Narzędzie informacyjne, nie zastępuje porady prawnej</p>
+<p class="text-xs text-blue-300 mt-1">Zgodne z IRNR, Orden HAC/623/2026, orzeczeniem TK 170/2023</p>
+</footer>
+
+<script>
+// NAWIGACJA
+function showTab(name) {
+  document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+  document.querySelectorAll('nav button').forEach(b => { b.classList.remove('tab-active'); b.classList.add('tab-inactive'); });
+  document.getElementById('section-' + name).classList.remove('hidden');
+  document.getElementById('tab-' + name).classList.remove('tab-inactive');
+  document.getElementById('tab-' + name).classList.add('tab-active');
+  window.scrollTo(0, 0);
+  if (name === 'calendar') loadDeadlines();
+  if (name === 'properties') loadProps();
+}
+
+// NIERUCHOMOŚCI
+document.getElementById('propForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const d = {
+    ref: document.getElementById('p_ref').value,
+    nickname: document.getElementById('p_nickname').value,
+    nie: document.getElementById('p_nie').value,
+    nie2: document.getElementById('p_nie2').value || "",
+    nie3: document.getElementById('p_nie3').value || "",
+    nie4: document.getElementById('p_nie4').value || "",
+    share: parseFloat(document.getElementById('p_share').value) || 100,
+    share2: parseFloat(document.getElementById('p_share2').value) || 0,
+    share3: parseFloat(document.getElementById('p_share3').value) || 0,
+    share4: parseFloat(document.getElementById('p_share4').value) || 0,
+    residency: document.getElementById('p_res').value,
+    valor_catastral: parseFloat(document.getElementById('p_vc').value),
+    valor_catastral_suelo: parseFloat(document.getElementById('p_suelo').value) || 0,
+    purchase_price: parseFloat(document.getElementById('p_pp').value) || 0,
+    purchase_date: document.getElementById('p_pd').value,
+    purchase_expenses: parseFloat(document.getElementById('p_pe').value) || 0,
+    revised_catastral: document.getElementById('p_rev').checked,
+    city: document.getElementById('p_city').value
+  };
+  const r = await fetch('/api/property/', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(d)});
+  const res = document.getElementById('propResult');
+  if (r.ok) { res.innerHTML = '<div class="bg-green-100 border-l-4 border-green-500 p-3 text-green-700">✅ Zapisano!</div>'; e.target.reset(); loadProps(); }
+  else { const err = await r.json(); res.innerHTML = '<div class="bg-red-100 border-l-4 border-red-500 p-3 text-red-700">❌ ' + err.detail + '</div>'; }
+});
+
+async function loadProps() {
+  const r = await fetch('/api/properties/');
+  const d = await r.json();
+  const el = document.getElementById('propList');
+  if (!d.length) { el.innerHTML = '<p class="text-gray-500 italic">Brak nieruchomości. Dodaj pierwszą powyżej.</p>'; return; }
+  el.innerHTML = d.map(p => {
+    let ownersHtml = p.owners.map(o => '<span class="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs mr-1 mb-1">👤 ' + o.nie + ' (' + o.share + '%)</span>').join('');
+    return '<div class="border-2 border-gray-200 p-3 rounded mb-2 hover:border-blue-400"><div class="flex justify-between items-start"><div><span class="font-bold text-blue-900">' + p.ref + '</span> ' + (p.nickname ? '<span class="text-gray-600">- ' + p.nickname + '</span>' : '') + '<br><span class="text-xs text-gray-500">' + p.residency.toUpperCase() + ' | ' + (p.city || '') + '</span><div class="mt-2">' + ownersHtml + '</div></div><div class="text-right"><span class="font-bold text-green-600">' + p.valor + ' €</span></div></div></div>';
+  }).join('');
+}
+
+// WYNAJEM
+document.getElementById('rentalForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const ref = document.getElementById('r_ref').value;
+  const d = {
+    property_ref: ref, year: parseInt(document.getElementById('r_year').value) || 2026,
+    rental_income: parseFloat(document.getElementById('r_income').value),
+    rental_days: parseInt(document.getElementById('r_days').value) || 0,
+    empty_days: parseInt(document.getElementById('r_empty').value) || 0,
+    mortgage_interest: parseFloat(document.getElementById('r_mortgage').value) || 0,
+    depreciation: parseFloat(document.getElementById('r_depr').value) || 0,
+    insurance: parseFloat(document.getElementById('r_ins').value) || 0,
+    expenses: parseFloat(document.getElementById('r_ibi').value) || 0,
+    other_expenses: parseFloat(document.getElementById('r_other').value) || 0
+  };
+  const r = await fetch('/api/calculate/rental/' + ref, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(d)});
+  if (r.ok) {
+    const x = await r.json();
+    document.getElementById('rentalData').textContent = JSON.stringify(x, null, 2);
+    document.getElementById('rentalResult').classList.remove('hidden');
+    document.getElementById('rentalPdf').href = '/api/download_pdf/rental/' + x.rental_id;
+  } else { const err = await r.json(); alert('Błąd: ' + err.detail); }
+});
+
+// SPRZEDAŻ
+document.getElementById('saleForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const ref = document.getElementById('s_ref').value;
+  const d = {
+    property_ref: ref,
+    sale_price: parseFloat(document.getElementById('s_price').value),
+    sale_date: document.getElementById('s_date').value,
+    sale_expenses: parseFloat(document.getElementById('s_exp').value) || 0,
+    improvements: parseFloat(document.getElementById('s_imp').value) || 0,
+    plusvalia_coeff: parseFloat(document.getElementById('s_coeff').value) || 0
+  };
+  const r = await fetch('/api/calculate/sale/' + ref, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(d)});
+  if (r.ok) {
+    const x = await r.json();
+    document.getElementById('saleData').textContent = JSON.stringify(x, null, 2);
+    document.getElementById('saleResult').classList.remove('hidden');
+    document.getElementById('salePdf').href = '/api/download_pdf/sale/' + x.sale_id;
+  } else { const err = await r.json(); alert('Błąd: ' + err.detail); }
+});
+
+// TERMINARZ
+function loadDeadlines() {
+  const deadlines = [
+    {date: "2026-04-20", title: "Modelo 210 Q1 2026", desc: "Wynajem styczeń-marzec", type: "rental"},
+    {date: "2026-07-20", title: "Modelo 210 Q2 2026", desc: "Wynajem kwiecień-czerwiec", type: "rental"},
+    {date: "2026-10-20", title: "Modelo 210 Q3 2026", desc: "Wynajem lipiec-wrzesień", type: "rental"},
+    {date: "2026-12-31", title: "IBI 2026", desc: "Podatek od nieruchomości", type: "ibi"},
+    {date: "2027-01-20", title: "Modelo 210 Q4 2026", desc: "Wynajem październik-grudzień", type: "rental"},
+    {date: "2027-04-01", title: "Modelo 210 - Renta imputada 2026", desc: "Okres: 1 kwietnia - 31 grudnia 2027", type: "imputed"}
+  ];
+  const today = new Date();
+  const el = document.getElementById('deadlineList');
+  el.innerHTML = deadlines.map(dl => {
+    const dlDate = new Date(dl.date);
+    const daysLeft = Math.ceil((dlDate - today) / (1000*60*60*24));
+    let color = daysLeft < 0 ? 'red' : daysLeft < 30 ? 'yellow' : 'green';
+    let status = daysLeft < 0 ? '❌ MINĄŁ' : daysLeft < 30 ? '⚠️ ' + daysLeft + ' dni' : '✅ ' + daysLeft + ' dni';
+    return '<div class="border-l-4 border-' + color + '-500 bg-' + color + '-50 p-3 rounded"><div class="flex justify-between"><span class="font-bold">' + dl.title + '</span><span class="text-sm font-bold text-' + color + '-700">' + status + '</span></div><div class="text-sm text-gray-700">' + dl.desc + '</div><div class="text-xs text-gray-500">Termin: ' + dl.date + '</div></div>';
+  }).join('');
+}
+
+// KOSZTY
+document.getElementById('maintForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const ibi = parseFloat(document.getElementById('m_ibi').value) || 0;
+  const basura = parseFloat(document.getElementById('m_basura').value) || 0;
+  const com_month = parseFloat(document.getElementById('m_com').value) || 0;
+  const ins = parseFloat(document.getElementById('m_ins').value) || 0;
+  const elec_month = parseFloat(document.getElementById('m_elec').value) || 0;
+  const water_month = parseFloat(document.getElementById('m_water').value) || 0;
+  const imputed = parseFloat(document.getElementById('m_imputed').value) || 0;
+
+  const com_year = com_month * 12;
+  const elec_year = elec_month * 12;
+  const water_year = water_month * 12;
+  const total = ibi + basura + com_year + ins + elec_year + water_year + imputed;
+
+  document.getElementById('res_ibi').textContent = ibi.toFixed(2) + ' €';
+  document.getElementById('res_basura').textContent = basura.toFixed(2) + ' €';
+  document.getElementById('res_com').textContent = com_year.toFixed(2) + ' €';
+  document.getElementById('res_ins').textContent = ins.toFixed(2) + ' €';
+  document.getElementById('res_elec').textContent = elec_year.toFixed(2) + ' €';
+  document.getElementById('res_water').textContent = water_year.toFixed(2) + ' €';
+  document.getElementById('res_imp').textContent = imputed.toFixed(2) + ' €';
+  document.getElementById('res_total_year').textContent = total.toFixed(2) + ' €';
+  document.getElementById('res_total_month').textContent = (total / 12).toFixed(2) + ' €';
+
+  document.getElementById('maintResult').classList.remove('hidden');
+});
+
+// INIT
+loadProps();
+</script>
+</body>
+</html>
